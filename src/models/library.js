@@ -19,17 +19,12 @@ const librarySchema = new mongoose.Schema({
     type: mongoose.Schema.ObjectId,
     ref: 'Asset',
   },
+  emotions: [String],
   color: String,
   totalAssets: Number,
   totalMembers: Number,
   rate: Number,
   createdAt: Date,
-  // rolls: [
-  //   {
-  //     type: mongoose.Schema.ObjectId,
-  //     ref: 'Roll',
-  //   },
-  // ],
 });
 
 // このlibraryに紐づくalbumがいくともある感じになる。

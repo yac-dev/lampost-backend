@@ -45,33 +45,53 @@ export const getLibrary = async (request, response) => {
 
 export const createLibrary = async (request, response) => {
   try {
-    const { name, badges, description, assets, launcher } = request.body;
+    const { name, badges, description, asset, launcher } = request.body;
     const library = await Library.create({
       name,
       badges,
       description,
       launcher: launcher._id,
-      thumbnail: assets[0]._id,
-      totalAssets: assets.length,
+      thumbnail: asset._id,
+      totalAssets: 1,
       totalMembers: 1,
       color: colors[Math.floor(Math.random() * colors.length)],
-      rate: 5,
       createdAt: new Date(),
     });
-    // assetsがあれば、libraryとassetsのrelationshipを作ると。
-    const relationships = assets.map((asset) => {
-      return {
-        library: library._id,
-        asset: asset._id,
-      };
+
+    const queriedAsset = await Asset.findById(asset._id);
+    if (!queriedAsset.badges.length) {
+      const arr = badges.map((badge) => {
+        return {
+          badge: badge,
+          totalCounts: 0,
+        };
+      });
+      queriedAsset.badges.push(...arr);
+      queriedAsset.save();
+    } else {
+      for (let i = 0; i < badges.length; i++) {
+        if (queriedAsset.badges.some((badgeObject) => badgeObject.badge.toString() === badges[i])) {
+          null;
+        } else {
+          queriedAsset.badges.push({
+            badge: badges[i],
+            totalCounts: 0,
+          });
+        }
+      }
+      queriedAsset.save();
+    }
+
+    const libraryAndAssetRelationships = await LibraryAndAssetRelationship.create({
+      library: library._id,
+      asset: asset._id,
     });
-    const libraryAndAssetRelationships = await LibraryAndAssetRelationship.insertMany(relationships);
     const libraryAndUserRelationship = await LibraryAndUserRelationship.create({
       library: library._id,
       user: launcher._id,
     });
     response.status(200).json({
-      library,
+      library: { _id: library._id, name: library.name, thumbnail: asset.data },
     });
   } catch (error) {
     console.log(error);

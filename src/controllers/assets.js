@@ -62,9 +62,11 @@ export const getUserAssets = async (request, response) => {
   }
 };
 
-export const getAsset = async (request, response) => {
+export const getAssetById = async (request, response) => {
   try {
-    const asset = await Asset.findById(request.params.id);
+    const asset = await Asset.findById(request.params.id)
+      .populate({ path: 'badges', populate: { path: 'badge' } })
+      .populate({ path: 'createdBy', select: 'name photo _id' });
     response.status(200).json({
       asset,
     });
