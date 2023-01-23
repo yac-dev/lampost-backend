@@ -2,7 +2,6 @@ import Asset from '../models/asset';
 import Meetup from '../models/meetup';
 import User from '../models/user';
 import { uploadPhoto } from '../services/s3';
-import AssetAndUserRelationship from '../models/AssetAndUserRelationship';
 
 export const createPhoto = async (request, response) => {
   try {
