@@ -3,6 +3,7 @@ import cors from 'cors';
 import './databases/mongoose';
 
 // routers
+import { globalErrorHandler } from './controllers/globalErrors';
 import labRouter from './routers/labs';
 import authRouter from './routers/auth';
 import usersRouter from './routers/users';
@@ -51,5 +52,7 @@ app.use('/api/libraryandassetrelationships', libraryAndAssetRelationshipsRouter)
 app.use('/api/loungechats', loungeChatsRouter);
 app.use('/api/launcherandpatronrelationships', launcherAndPatronRelationshisRouter);
 app.use('/api/lab', labRouter);
+
+app.use(globalErrorHandler);
 
 export default app;

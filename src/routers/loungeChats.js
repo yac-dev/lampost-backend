@@ -1,8 +1,8 @@
 import express from 'express';
 const router = express.Router();
-import { getMyLoungeChats, getSelectedMeetupLoungeChats } from '../controllers/loungeChats';
+import { getMyLoungeStatus, getSelectedMeetupLoungeChats } from '../controllers/loungeChats';
 
-router.route('/').post(getMyLoungeChats);
+router.route('/').post(getMyLoungeStatus);
 router.route('/:meetupId').get(getSelectedMeetupLoungeChats);
 
 export default router;

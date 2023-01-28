@@ -43,7 +43,7 @@ export const getBadges = async (request, response) => {
       badges = badges.where({ $and: queryFilters });
     }
 
-    const limit = 120;
+    const limit = 600;
     const page = request.query.page;
     const skip = (page - 1) * limit;
 

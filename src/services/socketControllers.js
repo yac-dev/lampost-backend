@@ -24,5 +24,6 @@ export const createLoungeChat = async (io, data) => {
     createdAt: loungeChat.createdAt,
   };
 
-  io.in(data.meetupId).emit('SOMEONE_SENT_A_CHAT', loungeChatObject);
+  io.in(data.meetupId).emit('I_GOT_A_CHAT_IN_THE_ROOM', loungeChatObject);
+  io.in(data.meetupId).emit('I_GOT_A_CHAT_OUT_OF_THE_ROOM.GO_CHECK_OUT_THE_LOUNGE', loungeChatObject);
 };

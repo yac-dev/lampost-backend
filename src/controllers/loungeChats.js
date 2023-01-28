@@ -1,7 +1,7 @@
 import LoungeChat from '../models/loungeChat';
 import Meetup from '../models/meetup';
 
-export const getMyLoungeChats = async (request, response) => {
+export const getMyLoungeStatus = async (request, response) => {
   try {
     const myUpcomingMeetupAndChatsTable = {};
     const { myUpcomingMeetups } = request.body;
@@ -15,7 +15,7 @@ export const getMyLoungeChats = async (request, response) => {
         myUpcomingMeetups[i].viewedChatsLastTime;
       // { meetupのId: { _id: 'meetupのId', viewedChatsLastTime: '2022/9/1'} }
       myUpcomingMeetupAndChatsTable[myUpcomingMeetups[i].meetup].unreadChatsCount = 0;
-      myUpcomingMeetupAndChatsTable[myUpcomingMeetups[i].meetup].chats = [];
+      // myUpcomingMeetupAndChatsTable[myUpcomingMeetups[i].meetup].chats = [];
       // { meetupのId: { _id: 'meetupのId', viewedChatsLastTime: '2022/9/1', unreadChatsCount: 0} }
     }
     // ここまでで、objectの準備をする。
@@ -48,7 +48,7 @@ export const getMyLoungeChats = async (request, response) => {
       select: 'name photo',
     });
     for (let i = 0; i < loungeChats.length; i++) {
-      myUpcomingMeetupAndChatsTable[loungeChats[i].meetup]['chats'].push(loungeChats[i]);
+      // myUpcomingMeetupAndChatsTable[loungeChats[i].meetup]['chats'].push(loungeChats[i]);
       //そのloungechatsが該当するmeetuptableのlastviewedより、loungechatsのcreatedが新しい場合、unreadをinrementする。
       if (
         new Date(myUpcomingMeetupAndChatsTable[loungeChats[i].meetup].viewedChatsLastTime) <
@@ -60,6 +60,20 @@ export const getMyLoungeChats = async (request, response) => {
     }
     response.status(200).json({
       myUpcomingMeetupAndChatsTable,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getLoungeChats = async (request, response) => {
+  try {
+    const loungeChats = await LoungeChat.find({ meetup: request.params.meetupId }).populate({
+      path: 'user',
+      select: '_id name photo',
+    });
+    response.status(200).json({
+      loungeChats,
     });
   } catch (error) {
     console.log(error);
