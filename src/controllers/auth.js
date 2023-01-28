@@ -1,6 +1,6 @@
 // Schema
 import User from '../models/user';
-import AppError from '../utils/appError';
+// import AppError from '../utils/appError';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 
@@ -44,9 +44,9 @@ export const signup = async (request, response, next) => {
     console.log(error.name);
     console.log(error.message);
     next(error);
-    // response.status(400).json({
-    //   message: error,
-    // });
+    response.status(400).json({
+      message: 'Password has to be at least 10 characters long.',
+    });
   }
 };
 
