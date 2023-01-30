@@ -94,3 +94,14 @@ export const logout = async (request, response) => {
     console.log(error);
   }
 };
+
+export const deleteMe = async (request, response) => {
+  try {
+    const user = await User.findByIdAndRemove(request.params.id);
+    response.status(204).json({
+      message: 'resource deleted successfully',
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
