@@ -91,7 +91,7 @@ export const createLibrary = async (request, response) => {
       user: launcher._id,
     });
     response.status(200).json({
-      library: { _id: library._id, name: library.name, thumbnail: asset.data },
+      library: { _id: library._id, name: library.name, thumbnail: { data: asset.data } },
     });
   } catch (error) {
     console.log(error);
