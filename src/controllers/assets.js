@@ -12,7 +12,7 @@ export const createPhoto = async (request, response) => {
       throw new Error('This is the error');
     } else {
       const asset = await Asset.create({
-        data: `https://lampost-dev.s3.us-east-2.amazonaws.com/assets/photos/${request.file.filename}`,
+        data: `https://lampost-${process.env.NODE_ENV}.s3.us-east-2.amazonaws.com/assets/photos/${request.file.filename}`,
         type: 'photo',
         meetup: meetupId,
         createdBy: userId,
