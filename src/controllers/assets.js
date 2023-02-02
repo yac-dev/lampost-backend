@@ -51,7 +51,7 @@ export const createVideo = () => {
 export const getUserAssets = async (request, response) => {
   try {
     console.log(request.body.userId);
-    const assets = await Asset.find({ createdBy: request.body.userId });
+    const assets = await Asset.find({ createdBy: request.params.userId });
     console.log(assets);
     response.status(200).json({
       assets,
