@@ -18,7 +18,9 @@ export const signup = async (request, response, next) => {
       email,
       password,
       createdAt: new Date(),
-      ongoingMeetup: false,
+      ongoingMeetup: {
+        state: false,
+      },
       pushToken: '',
       leadership: {
         total: 0,
