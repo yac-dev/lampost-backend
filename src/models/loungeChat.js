@@ -14,7 +14,7 @@ const loungeChatSchema = new mongoose.Schema({
   },
   replyTo: {
     // どのchat objectに対して付随するか、ってだけ。
-    type: mongoose.Schema.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'LoungeChat',
   },
   type: {

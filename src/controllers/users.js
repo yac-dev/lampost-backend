@@ -136,3 +136,16 @@ export const updateViewedChatsLastTime = async (request, response) => {
     console.log(error);
   }
 };
+
+export const registerPushToken = async (request, response) => {
+  try {
+    const user = await User.findById(request.params.id);
+    user.pushToken = request.body.pushToken;
+    user.save();
+    response.status(200).json({
+      pushToken: request.body.pushToken,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};

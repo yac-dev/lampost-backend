@@ -8,6 +8,7 @@ import {
   getUserAssets,
   editProfilePhoto,
   updateViewedChatsLastTime,
+  registerPushToken,
 } from '../controllers/users';
 
 router.route('/:id').get(getUser);
@@ -16,5 +17,6 @@ router.route('/:id/addbadges').patch(addBadges);
 router.route('/:id/pastmeetups').get(getPastMeetups);
 router.route('/:id/profile').patch(multer.single('avatar'), editProfilePhoto);
 router.route('/:id/viewedchatslasttime').patch(updateViewedChatsLastTime);
+router.route('/:id/pushToken').patch(registerPushToken);
 
 export default router;

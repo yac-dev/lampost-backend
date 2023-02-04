@@ -45,7 +45,7 @@ io.on('connection', (socket) => {
   });
 
   socket.on('I_SEND_A_CHAT', (data) => {
-    createLoungeChat(io, data);
+    createLoungeChat(io, socket, data);
   });
 
   socket.on('disconnect', () => {

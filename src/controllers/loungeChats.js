@@ -82,10 +82,16 @@ export const getLoungeChats = async (request, response) => {
 
 export const getSelectedMeetupLoungeChats = async (request, response) => {
   try {
-    const loungeChats = await LoungeChat.find({ meetup: request.params.meetupId }).populate({
-      path: 'user',
-      select: 'name photo',
-    });
+    const loungeChats = await LoungeChat.find({ meetup: request.params.meetupId })
+      .populate({
+        path: 'user',
+        select: 'name photo',
+      })
+      .populate({
+        path: 'replyTo',
+        select: 'content user createdAt',
+        populate: { path: 'user', select: 'name photo' },
+      });
     response.status(200).json({
       loungeChats,
     });
