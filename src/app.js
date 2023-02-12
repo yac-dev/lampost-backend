@@ -7,11 +7,13 @@ import './databases/mongoose';
 import labRouter from './routers/labs';
 import authRouter from './routers/auth';
 import usersRouter from './routers/users';
+import userBlockingRelationshipsRouter from './routers/userBlockingRelationships';
 import meetupsRouter from './routers/meetups';
 import badgesRouter from './routers/badges';
 import commentsRouter from './routers/comments';
 import assetsRouter from './routers/assets';
 import librariesRouter from './routers/libraries';
+import reportsRouter from './routers/reports';
 import libraryAndUserRelationshipsRouter from './routers/libraryAndUserRelationships';
 import pastMeetupAndUserRelationshipsRouter from './routers/pastMeetupAndUserRelationships';
 import badgeAndUserRelationshipsRouter from './routers/badgeAndUserRelationships';
@@ -36,10 +38,12 @@ app.get('/', (request, response) => {
 
 app.use('/api/auth', authRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/userblockingrelationships', userBlockingRelationshipsRouter);
 app.use('/api/meetups', meetupsRouter);
 app.use('/api/badges', badgesRouter);
 app.use('/api/comments', commentsRouter);
 app.use('/api/assets', assetsRouter);
+app.use('/api/reports', reportsRouter);
 app.use('/api/libraries', librariesRouter);
 app.use('/api/libraryanduserrelationships', libraryAndUserRelationshipsRouter);
 app.use('/api/pastmeetupanduserrelationships', pastMeetupAndUserRelationshipsRouter);

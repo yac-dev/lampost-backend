@@ -2,21 +2,25 @@ import User from '../models/user';
 import Badge from '../models/badge';
 import Meetup from '../models/meetup';
 import Asset from '../models/asset';
+import UserBlockingRelationship from '../models/userBlockingRelationship';
 import { uploadAvatar } from '../services/s3';
 
 export const getUser = async (request, response) => {
   try {
+    const { userId } = request.body;
     const user = await User.findById(request.params.id);
-    // .populate({
-    //   path: 'badges',
-    //   model: BadgeStatus,
-    //   populate: {
-    //     path: 'badge',
-    //     model: Badge,
-    //   },
-    // });
+    let isBlocking = false;
+    const userBlockingRelationship = await UserBlockingRelationship.findOne({
+      user: userId,
+      blocking: request.params.id,
+    });
+    console.log(userBlockingRelationship);
+    if (userBlockingRelationship) {
+      isBlocking = true;
+    }
     response.status(200).json({
       user,
+      isBlocking,
     });
   } catch (error) {
     console.log(error);

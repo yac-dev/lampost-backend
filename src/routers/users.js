@@ -11,7 +11,7 @@ import {
   registerPushToken,
 } from '../controllers/users';
 
-router.route('/:id').get(getUser);
+router.route('/:id').post(getUser);
 router.route('/:id/assets').get(getUserAssets);
 router.route('/:id/addbadges').patch(addBadges);
 router.route('/:id/pastmeetups').get(getPastMeetups);
